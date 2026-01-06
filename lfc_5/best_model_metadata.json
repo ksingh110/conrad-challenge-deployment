@@ -1,0 +1,9 @@
+{
+  "model_type": "Penalized LR",
+  "roc_auc": 0.7386363636363636,
+  "all_model_performances": {
+    "XGBoost": 0.6818181818181819,
+    "Penalized LR": 0.7386363636363636,
+    "Random Forest": 0.42045454545454547
+  }
+}

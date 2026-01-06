@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cancer Immunotherapy Prediction</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d1b3d 50%, #3d2817 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.03) 35px, rgba(255,255,255,.03) 70px),
+        repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(255,255,255,.03) 35px, rgba(255,255,255,.03) 70px);
+      pointer-events: none;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 48px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .subtitle {
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 32px;
+      font-size: 14px;
+    }
+
+    .upload-area {
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 48px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #f8fafc;
+    }
+
+    .upload-area:hover {
+      border-color: #3b82f6;
+      background: #eff6ff;
+    }
+
+    .upload-area.drag-over {
+      border-color: #2563eb;
+      background: #dbeafe;
+    }
+
+    .upload-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      background: linear-gradient(135deg, #3b82f6 0%, #f97316 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+
+    .upload-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .upload-hint {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 48px 24px;
+    }
+
+    .spinner {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 24px;
+      border: 4px solid #e2e8f0;
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 16px;
+      color: #64748b;
+    }
+
+    .results {
+      text-align: center;
+      padding: 24px;
+    }
+
+    .results h2 {
+      font-size: 24px;
+      color: #1e293b;
+      margin-bottom: 24px;
+    }
+
+    .percentage {
+      font-size: 72px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #3b82f6 0%, #f97316 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 32px;
+    }
+
+    .reset-btn {
+      background: linear-gradient(135deg, #3b82f6 0%, #f97316 100%);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .reset-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Head & Neck Cancer Immunotherapy Prediction</h1>
+    <p class="subtitle">Upload patient data file for analysis</p>
+
+    <div id="uploadSection">
+      <div class="upload-area" id="uploadArea">
+        <div class="upload-icon">🧬</div>
+        <div class="upload-text">Drop file here or click to upload</div>
+        <div class="upload-hint">Supported formats: CSV, TXT, JSON</div>
+      </div>
+      <input type="file" id="fileInput" accept=".csv,.txt,.json">
+    </div>
+
+    <div id="loadingSection" class="hidden">
+      <div class="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">Analyzing patient data...</div>
+      </div>
+    </div>
+
+    <div id="resultsSection" class="hidden">
+      <div class="results">
+        <h2>Immunotherapy Success Probability</h2>
+        <div class="percentage" id="resultPercentage">--</div>
+        <button class="reset-btn" onclick="resetUpload()">Upload Another File</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const uploadSection = document.getElementById('uploadSection');
+    const loadingSection = document.getElementById('loadingSection');
+    const resultsSection = document.getElementById('resultsSection');
+    const resultPercentage = document.getElementById('resultPercentage');
+
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('drag-over');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('drag-over');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('drag-over');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        handleFile(files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFile(e.target.files[0]);
+      }
+    });
+
+  function handleFile(file) {
+  uploadSection.classList.add('hidden');
+  loadingSection.classList.remove('hidden');
+
+  const formData = new FormData();
+  formData.append("file", file);   // 🔑 MUST be "file"
+
+  fetch("/predict", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => {
+    console.log("Response status:", response.status);
+    return response.json();
+  })
+  .then(data => {
+    console.log("Response data:", data);
+
+    if (data.error) {
+      alert(data.error);
+      resetUpload();
+      return;
+    }
+
+    const percentage = (data.probability * 100).toFixed(1);
+
+    showResults(percentage);
+  })
+  .catch(err => {
+    console.error("FETCH ERROR:", err);
+    alert("Prediction failed");
+    resetUpload();
+  });
+
+
+    }
+
+    function showResults(percentage) {
+      loadingSection.classList.add('hidden');
+      resultsSection.classList.remove('hidden');
+      resultPercentage.textContent = percentage + '%';
+    }
+
+    function resetUpload() {
+      resultsSection.classList.add('hidden');
+      uploadSection.classList.remove('hidden');
+      fileInput.value = '';
+    }
+  </script>
+</body>
+</html>
