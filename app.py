@@ -51,3 +51,4 @@ def predict():
     prob = model.predict_proba(X)[0, 1]
 
     return jsonify({"probability": float(prob)})
+##sup
