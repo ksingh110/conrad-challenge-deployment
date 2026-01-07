@@ -6,10 +6,8 @@ import os
 app = Flask(__name__)
 
 # Relative paths (Vercel-safe)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-MODEL_PATH = os.path.join(BASE_DIR, "models", "penalized_lr_immunotherapy_model_lfc_5.pkl")
-FEATURE_PATH = os.path.join(BASE_DIR, "models", "feature_names_lfc5.pkl")
+MODEL_PATH = "lfc_5/penalized_lr_immunotherapy_model.pkl"
+FEATURE_PATH = "lfc_5/feature_names.pkl"
 
 # Load model + features once (cold start)
 with open(MODEL_PATH, "rb") as f:
