@@ -20,10 +20,19 @@ export default function ModelPage() {
     formData.append("file", selectedFile)
 
     try {
-      const response = await fetch("/predict", {
-        method: "POST",
-        body: formData,
-      })
+      // ✅ CHANGE 1: use backend URL from env variable
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/predict`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      )
+
+      // ✅ CHANGE 2: safety check
+      if (!response.ok) {
+        throw new Error("Server error")
+      }
 
       const data = await response.json()
 
@@ -111,56 +120,6 @@ export default function ModelPage() {
           </div>
         </section>
 
-        {/* KNN Model Section */}
-        <section className="container mx-auto px-4 mb-24 bg-gradient-to-b from-white/50 to-cyan-50/30 -mx-4 px-4 py-24">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-              K-Nearest Neighbors (KNN) Classification Model
-            </h2>
-
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              {/* Video Placeholder 1 */}
-              <div className="bg-gradient-to-br from-cyan-100/40 to-blue-100/30 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center shadow-sm">
-                <div className="text-center p-8">
-                  <p className="text-sm text-cyan-700">Video placeholder: KNN Model Training Process</p>
-                  <p className="text-xs text-cyan-600/60 mt-2">Upload your video here</p>
-                </div>
-              </div>
-
-              {/* Video Placeholder 2 */}
-              <div className="bg-gradient-to-br from-blue-100/30 to-teal-100/40 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center shadow-sm">
-                <div className="text-center p-8">
-                  <p className="text-sm text-cyan-700">Video placeholder: KNN Model Visualization</p>
-                  <p className="text-xs text-cyan-600/60 mt-2">Upload your video here</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white/80 border border-cyan-200 rounded-lg p-8 shadow-sm">
-              <h3 className="text-xl font-semibold mb-4 text-teal-700">How It Works</h3>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Our KNN model analyzes tumor gene expression profiles by comparing them to known patient outcomes. The
-                algorithm identifies the K most similar historical cases and predicts treatment response based on their
-                collective outcomes.
-              </p>
-              <ul className="space-y-2 text-gray-700">
-                <li className="flex items-start gap-2">
-                  <span className="text-cyan-600 mt-1">→</span>
-                  <span>Processes high-dimensional transcriptomic data from tumor samples</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-teal-600 mt-1">→</span>
-                  <span>Identifies similar patient profiles using distance metrics in gene expression space</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-blue-600 mt-1">→</span>
-                  <span>Generates probabilistic predictions based on nearest neighbor outcomes</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
         {/* Immunotherapy Prediction Tool */}
         <section className="container mx-auto px-4 mb-24">
           <div className="max-w-2xl mx-auto">
@@ -177,49 +136,25 @@ export default function ModelPage() {
                 <div
                   className="border-2 border-dashed border-cyan-300 rounded-lg p-12 text-center cursor-pointer hover:border-cyan-400 hover:bg-cyan-50 transition-colors"
                   onClick={() => document.getElementById("fileInput")?.click()}
-                  onDragOver={(e) => {
-                    e.preventDefault()
-                    e.currentTarget.classList.add("border-cyan-400", "bg-cyan-50")
-                  }}
-                  onDragLeave={(e) => {
-                    e.currentTarget.classList.remove("border-cyan-400", "bg-cyan-50")
-                  }}
                   onDrop={(e) => {
                     e.preventDefault()
-                    e.currentTarget.classList.remove("border-cyan-400", "bg-cyan-50")
-                    const files = e.dataTransfer.files
-                    if (files.length > 0) {
-                      handleFile(files[0])
+                    if (e.dataTransfer.files.length > 0) {
+                      handleFile(e.dataTransfer.files[0])
                     }
                   }}
                 >
-                  <div className="flex justify-center mb-4">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center">
-                      <Upload className="h-8 w-8 text-white" />
-                    </div>
-                  </div>
-                  <p className="font-semibold mb-2 text-gray-800">Drop file here or click to upload</p>
-                  <p className="text-sm text-gray-600">Supported formats: CSV, TXT, JSON</p>
+                  <Upload className="h-8 w-8 text-cyan-600 mx-auto mb-4" />
+                  <p className="font-semibold mb-2">Drop file here or click to upload</p>
                 </div>
               )}
 
-              {loading && (
-                <div className="text-center py-12">
-                  <div className="w-16 h-16 border-4 border-cyan-200 border-t-cyan-500 rounded-full animate-spin mx-auto mb-4" />
-                  <p className="text-cyan-700">Analyzing patient data...</p>
-                </div>
-              )}
+              {loading && <p className="text-center">Analyzing patient data…</p>}
 
               {result !== null && (
                 <div className="text-center py-12">
-                  <h3 className="text-xl font-semibold mb-6 text-cyan-700">Immunotherapy Success Probability</h3>
-                  <div className="text-7xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent mb-8">
-                    {result.toFixed(1)}%
-                  </div>
-                  <Button
-                    onClick={resetUpload}
-                    className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white"
-                  >
+                  <h3 className="text-xl font-semibold mb-6">Immunotherapy Success Probability</h3>
+                  <div className="text-7xl font-bold">{result.toFixed(1)}%</div>
+                  <Button onClick={resetUpload} className="mt-6">
                     Upload Another File
                   </Button>
                 </div>
@@ -237,38 +172,9 @@ export default function ModelPage() {
                 }}
               />
             </div>
-
-            <div className="mt-8 bg-gradient-to-br from-cyan-100/40 to-blue-100/30 border border-cyan-200 rounded-lg p-6 shadow-sm">
-              <h3 className="font-semibold mb-3 text-teal-700">About This Model</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                This prediction tool uses a neural network trained on head and neck cancer patient data to predict
-                immunotherapy response rates. The model analyzes gene expression patterns to identify biomarkers
-                associated with treatment success, providing clinicians with data-driven insights for personalized
-                treatment planning.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Image Placeholder Section */}
-        <section className="container mx-auto px-4 mb-16">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-teal-100/40 to-cyan-100/40 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center shadow-sm">
-              <div className="text-center p-8">
-                <p className="text-sm text-cyan-700">Image placeholder: Model Architecture Diagram</p>
-                <p className="text-xs text-cyan-600/60 mt-2">Upload your image here</p>
-              </div>
-            </div>
           </div>
         </section>
       </div>
-
-      {/* Footer */}
-      <footer className="py-8 border-t border-cyan-200 bg-white/50">
-        <div className="container mx-auto px-4 text-center text-sm text-gray-600">
-          <p>&copy; 2026 OncoMap. All rights reserved.</p>
-        </div>
-      </footer>
     </div>
   )
 }
