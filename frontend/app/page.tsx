@@ -106,10 +106,11 @@ export default function HomePage() {
             <div className="bg-gradient-to-br from-cyan-100/40 to-teal-100/40 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center">
               <div className="text-center p-8">
                 <img
-                  src="frontend/public/images/umap_picture_head_and_neck.png"
-                  alt="OncoMap UMAP_Head_and_Neck"
+                  src="/images/umap_picture_head_and_neck.png"
+                  alt="OncoMap UMAP head and neck visualization"
                   className="w-full h-full object-cover rounded-lg"
                 />
+
               </div>
             </div>
           </div>
