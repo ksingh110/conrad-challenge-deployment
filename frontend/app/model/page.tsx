@@ -126,8 +126,11 @@ export default function ModelPage() {
               {/* Video Placeholder 1 */}
               <div className="bg-gradient-to-br from-cyan-100/40 to-blue-100/30 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center shadow-sm">
                 <div className="text-center p-8">
-                  <p className="text-sm text-cyan-700">Video placeholder: KNN Model Training Process</p>
-                  <p className="text-xs text-cyan-600/60 mt-2">Upload your video here</p>
+                 <video
+                    src="/videos/knn_1_vid.mov"
+                    controls
+                    className="w-full h-full rounded-lg border border-cyan-200 object-cover"
+                  ></video>
                 </div>
               </div>
 
@@ -135,7 +138,7 @@ export default function ModelPage() {
               <div className="bg-gradient-to-br from-blue-100/30 to-teal-100/40 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center shadow-sm">
                 <div className="text-center p-8">
                   <video
-                    src="/videos/knn_1_vid.mov"
+                    src="/videos/knn_2_vid.mov"
                     controls
                     className="w-full h-full rounded-lg border border-cyan-200 object-cover"
                   >
@@ -264,8 +267,11 @@ export default function ModelPage() {
           <div className="mxax-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-teal-100/40 to-cyan-100/40 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center shadow-sm">
               <div className="text-center p-8">
-                <p className="text-sm text-cyan-700">Image placeholder: Model Architecture Diagram</p>
-                <p className="text-xs text-cyan-600/60 mt-2">Upload your image here</p>
+                 <img
+                  src="/images/response_clustering.png"
+                  alt="Responders vs Non-Responders Clustering Visualization"
+                  className="w-full h-full object-cover rounded-lg"
+                />
               </div>
             </div>
           </div>
