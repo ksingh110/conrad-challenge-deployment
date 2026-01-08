@@ -105,7 +105,11 @@ export default function HomePage() {
             </div>
             <div className="bg-gradient-to-br from-cyan-100/40 to-teal-100/40 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center">
               <div className="text-center p-8">
-                <p className="text-sm text-cyan-700">Image placeholder: Team photo or lab visualization</p>
+                <img
+                  src="public/images/umap_picture_head_and_neck.png"
+                  alt="OncoMap research team"
+                  className="w-full h-full object-cover rounded-lg"
+                />
               </div>
             </div>
           </div>
