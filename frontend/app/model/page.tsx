@@ -134,8 +134,13 @@ export default function ModelPage() {
               {/* Video Placeholder 2 */}
               <div className="bg-gradient-to-br from-blue-100/30 to-teal-100/40 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center shadow-sm">
                 <div className="text-center p-8">
-                  <p className="text-sm text-cyan-700">Video placeholder: KNN Model Visualization</p>
-                  <p className="text-xs text-cyan-600/60 mt-2">Upload your video here</p>
+                  <video
+                    src="/videos/knn_1_vid.mov"
+                    controls
+                    className="w-full h-full rounded-lg border border-cyan-200 object-cover"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
               </div>
             </div>
@@ -256,7 +261,7 @@ export default function ModelPage() {
 
         {/* Image Placeholder Section */}
         <section className="container mx-auto px-4 mb-16">
-          <div className="max-w-4xl mx-auto">
+          <div className="mxax-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-teal-100/40 to-cyan-100/40 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center shadow-sm">
               <div className="text-center p-8">
                 <p className="text-sm text-cyan-700">Image placeholder: Model Architecture Diagram</p>
