@@ -268,8 +268,8 @@ export default function ModelPage() {
             <div className="bg-gradient-to-br from-teal-100/40 to-cyan-100/40 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center shadow-sm">
               <div className="text-center p-8">
                  <img
-                  src="/images/response_clustering.png"
-                  alt="Responders vs Non-Responders Clustering Visualization"
+                  src="/images/immuno_figures.png"
+                  alt="Immunotherapy Model Figures"
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
