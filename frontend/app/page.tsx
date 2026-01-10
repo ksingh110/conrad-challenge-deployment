@@ -92,15 +92,18 @@ export default function HomePage() {
               </h2>
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
                 OncoMap is at the forefront of precision oncology, leveraging cutting-edge machine learning and
-                transcriptomic analysis to revolutionize cancer treatment decision-making.
+                transcriptomic analysis to revolutionize head and neck cancer treatment decision-making. In today's world, immunotherapy, specifically 
+                PD-1 inhibitors, has emerged as a transformative treatment option for head and neck cancer patients. However, the challenge lies in identifying which patients will truly benefit from this therapy, as head and neck cancer
+                lies at one of the lowest response rates of 15-30%. Due to this, many clinicians administer the therapy, which costs over $150,000, without knowing if it would help the patient. OncoMap addresses this critical need by 
+                developing advanced predictive models that analyze tumor transcriptomic data to accurately forecast patient responses to immunotherapy while also predicting specific oncogenic features.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                Our team of computational biologists, oncologists, and data scientists work together to translate
-                complex genomic data into actionable clinical insights, empowering physicians to make informed treatment
+                OncoMap's team consists of 2 research interns, Anshul R. and Krishay S., from the Holland Lab at Fred Hutchinson Cancer Research Center in Bellevue, Washington. OncoMap's team works together to translate
+                complex genomic data into actionable clinical insights, empowering oncologists and pathologists to make informed treatment
                 decisions tailored to each patient's unique tumor profile.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed">
-                We believe every cancer patient deserves a treatment plan as unique as their disease.
+                OncoMap strives for hyper-personalization; every head and neck cancer patient deserves a treatment plan as unique as their profile.
               </p>
             </div>
             <div className="bg-gradient-to-br from-cyan-100/40 to-teal-100/40 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center">
@@ -126,7 +129,7 @@ export default function HomePage() {
             </h2>
             <p className="text-xl text-gray-700 leading-relaxed mb-8">
               To democratize access to hyper-personalized cancer care by transforming tumor transcriptomic data into
-              precise, actionable treatment recommendations that improve patient outcomes and quality of life.
+              precise, actionable treatment recommendations that improve head and neck cancer patient outcomes and quality of life.
             </p>
             <div className="grid md:grid-cols-3 gap-8 mt-16">
               <div className="text-center">
@@ -140,8 +143,8 @@ export default function HomePage() {
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center">
                   <div className="w-8 h-2 bg-white rounded-full" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-teal-700">Speed</h3>
-                <p className="text-gray-600">Rapid analysis enabling timely treatment decisions</p>
+                <h3 className="text-xl font-semibold mb-2 text-teal-700">Cost-Efficent</h3>
+                <p className="text-gray-600">Saving hundreds of thousands of dollars that could possibly be lost otherwise when guessing if the therapy would work</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center">
@@ -158,9 +161,9 @@ export default function HomePage() {
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-r from-cyan-500 to-blue-500 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Cancer Care?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready To Join Our Mission to Transform Cancer Care?</h2>
           <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
-            Discover how our predictive models can enhance your clinical decision-making process.
+            Try out first-hand how our predictive models can enhance head and neck cancer clinical decision-making processes.
           </p>
           <Button size="lg" variant="secondary" asChild className="bg-white text-cyan-600 hover:bg-gray-100">
             <Link href="/model">
@@ -169,13 +172,7 @@ export default function HomePage() {
           </Button>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-8 border-t border-cyan-200 bg-white/50">
-        <div className="container mx-auto px-4 text-center text-sm text-gray-600">
-          <p>&copy; 2026 OncoMap. All rights reserved.</p>
-        </div>
-      </footer>
+      
     </div>
   )
 }
