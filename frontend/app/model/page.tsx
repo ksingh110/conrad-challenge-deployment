@@ -278,12 +278,7 @@ export default function ModelPage() {
         </section>
       </div>
 
-      {/* Footer */}
-      <footer className="py-8 border-t border-cyan-200 bg-white/50">
-        <div className="container mx-auto px-4 text-center text-sm text-gray-600">
-          <p>&copy; 2026 OncoMap. All rights reserved.</p>
-        </div>
-      </footer>
+     
     </div>
   )
 }
