@@ -268,7 +268,7 @@ export default function ModelPage() {
             <div className="bg-gradient-to-br from-teal-100/40 to-cyan-100/40 border border-cyan-200 rounded-lg aspect-video flex items-center justify-center shadow-sm">
               <div className="text-center p-8">
                  <img
-                  src="/images/immuno_figures.png"
+                  src="/images/innovation_image.png"
                   alt="Immunotherapy Model Figures"
                   className="w-full h-full object-cover rounded-lg"
                 />
