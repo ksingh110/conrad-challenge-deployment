@@ -3,8 +3,8 @@ const CACHE_NAME = "oncomap1";
 const STATIC_ASSETS = [
   "/",
   "/model",
-  "public/android-chrome-192x192.png",
-  "public/android-chrome-512x512.png"
+  "android-chrome-192x192.png",
+  "android-chrome-512x512.png"
 ];
 
 self.addEventListener("install", (event) => {
